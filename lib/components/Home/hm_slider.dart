@@ -13,7 +13,7 @@ class HmSlider extends StatefulWidget {
 
 class _HmSliderState extends State<HmSlider> {
   int _currentIndex = 0;  // 用于记录当前激活的索引
-  CarouselSliderController _controller = CarouselSliderController(); // 控制轮播图跳转的控制器
+  final CarouselSliderController _controller = CarouselSliderController(); // 控制轮播图跳转的控制器
 
   // 轮播图
   Widget _getSlider() {

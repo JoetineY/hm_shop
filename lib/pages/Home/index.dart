@@ -15,14 +15,16 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<BannerItem> _bannnerList = [];
+  List<BannerItem> _bannnerList = [];  // banner数据
+  List<CategoryItem> _categoryList = [];  // 分类数据
 
   List<Widget> _getScrollChildren() {
     return [
       SliverToBoxAdapter(child: HmSlider(bannerList: _bannnerList,)), // 轮播图组件
       SliverToBoxAdapter(child: SizedBox(height: 10)), // 间隙布局
+
       // SliverGrid SliverList只能纵向排列，因此此处不使用这两个组件
-      SliverToBoxAdapter(child: HmCategory()), // 主页分类组件
+      SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList,)), // 主页分类组件
       SliverToBoxAdapter(child: SizedBox(height: 10)), // 间隙布局
 
       SliverToBoxAdapter(child: HmSuggestion()), // 主页推荐组件
@@ -52,6 +54,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     _getBannerList();
+    _getCategoryList();
   }
 
   @override
@@ -59,8 +62,15 @@ class _HomeViewState extends State<HomeView> {
     return CustomScrollView(slivers: _getScrollChildren());
   }
 
+  // 获取轮播图列表
   void _getBannerList() async {
     _bannnerList = await getBannerListAPI();
+    setState(() {});
+  }
+
+  // 获取分类列表
+  void _getCategoryList() async {
+    _categoryList = await getCategoryListAPI();
     setState(() {});
   }
 }
