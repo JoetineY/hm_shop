@@ -7,6 +7,7 @@ import 'package:hm_shop/components/Home/hm_slider.dart';
 import 'package:hm_shop/components/Home/hm_suggestion.dart';
 import 'package:hm_shop/viewmodels/home/banner.dart';
 import 'package:hm_shop/viewmodels/home/category.dart';
+import 'package:hm_shop/viewmodels/home/good_detail_item.dart';
 import 'package:hm_shop/viewmodels/home/special_recommend.dart';
 
 class HomeView extends StatefulWidget {
@@ -24,6 +25,17 @@ class _HomeViewState extends State<HomeView> {
     title: "",
     subTypes: []
   );  // 特惠推荐数据
+  SpecialRecommendResult _inVogueResult = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );// 热榜推荐
+  SpecialRecommendResult _oneStopResult = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );  // 一站式推荐
+  List<GoodDetailItem> _recommendList = [];  // 推荐列表
 
   List<Widget> _getScrollChildren() {
     return [
@@ -43,16 +55,20 @@ class _HomeViewState extends State<HomeView> {
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: HmHot()),
+              Expanded(
+                child: HmHot(result: _inVogueResult, type: "hot"),
+              ),
               SizedBox(width: 10),
-              Expanded(child: HmHot()),
+              Expanded(
+                child: HmHot(result: _oneStopResult, type: "step"),
+              ),
             ],
           ),
-        ),
+        ),  // 爆款推荐
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)), // 间隙布局
 
-      HmMoreList(), // 无限滚动列表组件
+      HmMoreList(recommendList: _recommendList), // 推荐列表（无限滚动列表组件）
       SliverToBoxAdapter(child: SizedBox(height: 10)), // 间隙布局
     ];
   }
@@ -63,6 +79,9 @@ class _HomeViewState extends State<HomeView> {
     _getBannerList();
     _getCategoryList();
     _getSpecialRecommend();
+    _getInVogueList();
+    _getOneStopList();
+    _getRecommendList();
   }
 
   @override
@@ -85,6 +104,24 @@ class _HomeViewState extends State<HomeView> {
   // 获取特惠推荐数据
   void _getSpecialRecommend() async {
     _specialRecommendResult = await getSpecialRecommendResultAPI();
+    setState(() {});
+  }
+
+  // 获取热榜推荐列表
+  void _getInVogueList() async {
+    _inVogueResult = await getInVogueListAPI();
+    setState(() {});
+  }
+
+  // 获取一站式推荐列表
+  void _getOneStopList() async {
+    _oneStopResult = await getOneStopListAPI();
+    setState(() {});
+  }
+
+  // 获取推荐列表
+  void _getRecommendList() async {
+    _recommendList = await getRecommendListAPI({"limit": 10});
     setState(() {});
   }
 }
