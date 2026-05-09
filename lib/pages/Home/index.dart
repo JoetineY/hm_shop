@@ -5,7 +5,9 @@ import 'package:hm_shop/components/Home/hm_hot.dart';
 import 'package:hm_shop/components/Home/hm_more_list.dart';
 import 'package:hm_shop/components/Home/hm_slider.dart';
 import 'package:hm_shop/components/Home/hm_suggestion.dart';
-import 'package:hm_shop/viewmodels/home.dart';
+import 'package:hm_shop/viewmodels/home/banner.dart';
+import 'package:hm_shop/viewmodels/home/category.dart';
+import 'package:hm_shop/viewmodels/home/special_recommend.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,6 +19,11 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   List<BannerItem> _bannnerList = [];  // banner数据
   List<CategoryItem> _categoryList = [];  // 分类数据
+  SpecialRecommendResult _specialRecommendResult = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: []
+  );  // 特惠推荐数据
 
   List<Widget> _getScrollChildren() {
     return [
@@ -27,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
       SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList,)), // 主页分类组件
       SliverToBoxAdapter(child: SizedBox(height: 10)), // 间隙布局
 
-      SliverToBoxAdapter(child: HmSuggestion()), // 主页推荐组件
+      SliverToBoxAdapter(child: HmSuggestion(specialRecommendResult: _specialRecommendResult)), // 主页特惠推荐推荐组件
       SliverToBoxAdapter(child: SizedBox(height: 10)), // 间隙布局
 
       SliverToBoxAdapter(
@@ -55,6 +62,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
     _getBannerList();
     _getCategoryList();
+    _getSpecialRecommend();
   }
 
   @override
@@ -71,6 +79,12 @@ class _HomeViewState extends State<HomeView> {
   // 获取分类列表
   void _getCategoryList() async {
     _categoryList = await getCategoryListAPI();
+    setState(() {});
+  }
+
+  // 获取特惠推荐数据
+  void _getSpecialRecommend() async {
+    _specialRecommendResult = await getSpecialRecommendResultAPI();
     setState(() {});
   }
 }

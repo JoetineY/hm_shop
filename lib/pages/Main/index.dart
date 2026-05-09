@@ -16,23 +16,23 @@ class _MainPageState extends State<MainPage> {
   // 一般应用程序里的导航栏是不会变的
   final List<Map<String, String>> _tabList = [
     {
-      "icon": "lib/assets/ic_public_home_normal.png", // 正常显示图标
-      "active_icon": "lib/assets/ic_public_home_active.png", // 激活状态显示的图标
+      "icon": "assets/ic_public_home_normal.png", // 正常显示图标
+      "active_icon": "assets/ic_public_home_active.png", // 激活状态显示的图标
       "text": "首页",
     },
     {
-      "icon": "lib/assets/ic_public_pro_normal.png", // 正常显示图标
-      "active_icon": "lib/assets/ic_public_pro_active.png", // 激活状态显示的图标
+      "icon": "assets/ic_public_pro_normal.png", // 正常显示图标
+      "active_icon": "assets/ic_public_pro_active.png", // 激活状态显示的图标
       "text": "分类",
     },
     {
-      "icon": "lib/assets/ic_public_cart_normal.png", // 正常显示图标
-      "active_icon": "lib/assets/ic_public_cart_active.png", // 激活状态显示的图标
+      "icon": "assets/ic_public_cart_normal.png", // 正常显示图标
+      "active_icon": "assets/ic_public_cart_active.png", // 激活状态显示的图标
       "text": "购物车",
     },
     {
-      "icon": "lib/assets/ic_public_my_normal.png", // 正常显示图标
-      "active_icon": "lib/assets/ic_public_my_active.png", // 激活状态显示的图标
+      "icon": "assets/ic_public_my_normal.png", // 正常显示图标
+      "active_icon": "assets/ic_public_my_active.png", // 激活状态显示的图标
       "text": "个人中心",
     },
   ];

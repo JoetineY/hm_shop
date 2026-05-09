@@ -1,6 +1,7 @@
 // 主页分类组件
 import 'package:flutter/material.dart';
-import 'package:hm_shop/viewmodels/home.dart';
+import 'package:hm_shop/viewmodels/home/banner.dart';
+import 'package:hm_shop/viewmodels/home/category.dart';
 
 class HmCategory extends StatefulWidget {
   final List<CategoryItem> categoryList;

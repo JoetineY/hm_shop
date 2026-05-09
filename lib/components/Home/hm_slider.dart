@@ -1,7 +1,7 @@
 // 轮播图组件
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hm_shop/viewmodels/home.dart';
+import 'package:hm_shop/viewmodels/home/banner.dart';
 
 class HmSlider extends StatefulWidget {
   final List<BannerItem> bannerList;
