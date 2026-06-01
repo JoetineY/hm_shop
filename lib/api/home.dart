@@ -51,7 +51,7 @@ Future<List<GoodDetailItem>> getRecommendListAPI(
   return ((await dioRequest.get(HttpConstants.RECOMMEND_LIST, params: params))
           as List)
       .map((item) {
-        return GoodDetailItem.formJSON(item as Map<String, dynamic>);
+        return GoodDetailItem.fromJSON(item as Map<String, dynamic>);
       })
       .toList();
 }

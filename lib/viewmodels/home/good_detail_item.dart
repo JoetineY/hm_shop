@@ -1,5 +1,3 @@
-
-
 import 'package:hm_shop/viewmodels/home/special_recommend.dart';
 
 class GoodDetailItem extends GoodsItem {
@@ -15,7 +13,7 @@ class GoodDetailItem extends GoodsItem {
     required this.payCount,
   }) : super(desc: "");
   // 转化方法
-  factory GoodDetailItem.formJSON(Map<String, dynamic> json) {
+  factory GoodDetailItem.fromJSON(Map<String, dynamic> json) {
     return GoodDetailItem(
       id: json["id"]?.toString() ?? "",
       name: json["name"]?.toString() ?? "",
