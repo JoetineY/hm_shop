@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hm_shop/api/user.dart';
 import 'package:hm_shop/utils/toast_utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -169,6 +171,7 @@ class _LoginPageState extends State<LoginPage> {
           if (_key.currentState!.validate()) {
             // 进行勾选框的判断
             if (_isChecked) {
+              _login();
             } else {
               ToastUtils.showToast(context, "请勾选用户协议");
             }
@@ -184,5 +187,23 @@ class _LoginPageState extends State<LoginPage> {
         child: Text("登录", style: TextStyle(fontSize: 18, color: Colors.white)),
       ),
     );
+  }
+
+  dynamic _login() async {
+    // 调用登录接口
+    // 用于测试：
+    // 合法的账号：13200000001～13200000010
+    // 合法的密码：123456
+    try {
+      final res = await loginAPI({
+        "account": _phoneController.text,
+        "password": _codeController.text,
+      });
+      ToastUtils.showToast(context, "登录成功");
+      Navigator.pop(context);
+    } catch (e) {
+      ToastUtils.showToast(context, (e as DioException).message);
+    }
+    // 当代码执行到此处，表示一定登录成功，由http状态码可推断
   }
 }
