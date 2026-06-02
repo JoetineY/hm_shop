@@ -5,6 +5,8 @@ class GlobalConstants {
   static const int TIME_OUT = 18; // 超时时间
 
   static const String SUCCESS_CODE = "1"; // 成功状态
+
+  static const String TOKEN_KEY = "hm_shop_token"; // token对应持久化的key
 }
 
 // 存放请求地址的常量
@@ -19,5 +21,7 @@ class HttpConstants {
 
   static const String GUESS_LIST = "/home/goods/guessLike"; // 猜你喜欢
 
-  static const String LOGIN = "/login"; // 登陆请求地址
+  static const String LOGIN = "/login"; // 登录请求地址
+
+  static const String USER_PORFILE = "/member/profile"; // 用户信息借口地址
 }

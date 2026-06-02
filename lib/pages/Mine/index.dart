@@ -18,7 +18,7 @@ class _MineViewState extends State<MineView> {
 
   final ScrollController _controller = ScrollController();
 
-  final UserController _userController = Get.put(UserController());
+  final UserController _userController = Get.find();
 
   @override
   void initState() {
