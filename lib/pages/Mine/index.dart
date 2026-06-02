@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hm_shop/api/mine.dart';
 import 'package:hm_shop/components/Home/hm_more_list.dart';
 import 'package:hm_shop/components/Mine/hm_guess.dart';
+import 'package:hm_shop/stores/user_controller.dart';
 import 'package:hm_shop/viewmodels/home/good_detail_item.dart';
 
 class MineView extends StatefulWidget {
@@ -15,6 +17,8 @@ class _MineViewState extends State<MineView> {
   List<GoodDetailItem> _list = [];
 
   final ScrollController _controller = ScrollController();
+
+  final UserController _userController = Get.put(UserController());
 
   @override
   void initState() {
@@ -81,25 +85,40 @@ class _MineViewState extends State<MineView> {
       padding: const EdgeInsets.only(left: 20, right: 40, top: 80, bottom: 20),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 26,
-            backgroundImage: const AssetImage('mine/goods_avatar.png'),
-            backgroundColor: Colors.white,
-          ),
+          Obx(() {
+            return CircleAvatar(
+              radius: 26,
+              backgroundImage: _userController.user.value.id.isNotEmpty
+                  ? NetworkImage(_userController.user.value.avatar)
+                  : AssetImage('mine/goods_avatar.png'),
+              backgroundColor: Colors.white,
+            );
+          }),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, "/login");
-                  },
-                  child: Text(
-                    '立即登录',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                ),
+                Obx(() {
+                  // Obx要求如果使用Obx，则其中必须得有可监测的响应式数据
+                  return GestureDetector(
+                    onTap: () {
+                      if (_userController.user.value.id.isEmpty) {
+                        Navigator.pushNamed(context, "/login");
+                      }
+                    },
+                    child: Text(
+                      // 可监测数据
+                      _userController.user.value.id.isNotEmpty
+                          ? _userController.user.value.account
+                          : '立即登录',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  );
+                }),
               ],
             ),
           ),
