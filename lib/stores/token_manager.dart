@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TokenManager {
   // 返回持久化对象的实例对象
   Future<SharedPreferences> _getInstance() {
-    return SharedPreferences.getInstance();
+    return SharedPreferences.getInstance(); // 保证每次返回都是单例
   }
 
   String _token = "";

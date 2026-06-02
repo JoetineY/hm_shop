@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hm_shop/api/user.dart';
 import 'package:hm_shop/stores/token_manager.dart';
 import 'package:hm_shop/stores/user_controller.dart';
+import 'package:hm_shop/utils/loading_dialog.dart';
 import 'package:hm_shop/utils/toast_utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -199,6 +200,7 @@ class _LoginPageState extends State<LoginPage> {
     // 合法的账号：13200000001～13200000010
     // 合法的密码：123456
     try {
+      LoadingDiolog.show(context, message: "努力加载中"); // 加载页面
       final res = await loginAPI({
         "account": _phoneController.text,
         "password": _codeController.text,
@@ -206,9 +208,11 @@ class _LoginPageState extends State<LoginPage> {
       _userController.updateUserInfo(res);
       tokenManager.setToken(res.token); // 写入持久化
 
+      LoadingDiolog.hide(context);
       ToastUtils.showToast(context, "登录成功");
       Navigator.pop(context);
     } catch (e) {
+      LoadingDiolog.hide(context);
       ToastUtils.showToast(context, (e as DioException).message);
     }
     // 当代码执行到此处，表示一定登录成功，由http状态码可推断
